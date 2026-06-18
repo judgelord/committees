@@ -154,7 +154,7 @@ members_committees <- members_committees %>%
 
 
 
-save(members_committees, file = here::here("data", "members_committees.rds"))
+save(members_committees, file = here::here("data", "members_committees_combined.rds"))
 
 
 
