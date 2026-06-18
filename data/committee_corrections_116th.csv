@@ -1,0 +1,21 @@
+congress,chamber,bioname,,icpsr,committees,chair,ranking_minority,district_code,state_abbrev,state,pop2010,majority,presidents_party,party,first_cong,first_year,notes
+116,House,"AMASH, Justin",,91143,0,0,0,3,MI,michigan,9884129,0,0,(I),116,2019,
+116,House,"AMASH, Justin",,21143,OVERSIGHT,0,0,3,MI,michigan,9884129,1,1,(R),112,2011,
+116,House,"CLYBURN, James Enos",,39301,APPROPRIATIONS,0,0,6,SC,south carolina,4625401,0,0,(D),105,1997,
+116,House,"COLLINS, Chris",,21345,0,0,0,27,NY,new york,19378087,1,1,(R),113,2013,
+116,House,"GARCIA, Mike",,21988,TRANSPORTATION | SCIENCE SPACE TECHNOLOGY | HOMELAND SECURITY,0,0,25,CA,california,37252895,1,1,(R),116,2019,
+116,House,"HOYER, Steny Hamilton",,14873,MAJORITY LEADER,0,0,5,MD,maryland,5773785,0,0,(D),105,1997,
+116,House,"HUNTER, Duncan Duane",,20963,0,0,0,50,CA,california,37252895,1,1,(R),111,2009,
+116,House,"JACOBS, Chris",,21990,0,0,0,27,NY,new york,19378087,1,1,(R),116,2019,partial term
+116,House,"JONES, Walter Beaman, Jr.",,29546,0,0,0,3,NC,north carolina,9535692,1,1,(R),105,1997,died in office
+116,House,"KING, Steve",,20325,0,0,0,4,IA,iowa,3046869,1,1,(R),108,2003,
+116,House,"MARINO, Thomas A.",,21170,0,0,0,12,PA,pennsylvania,12702887,1,1,(R),112,2011,partial term
+116,House,"MCCARTHY, Kevin",,20703,MINORITY LEADER,0,0,23,CA,california,37252895,1,1,(R),110,2007,
+116,House,"PELOSI, Nancy",,15448,SPEAKER,0,0,12,CA,california,37252895,0,0,(D),105,1997,
+116,House,"TIFFANY, Thomas P.",,21989,0,0,0,7,WI,wisconsin,5687289,1,1,(R),116,2019,partial term
+116,House,"VAN DREW, Jefferson",,91980,EDUCATION | HOMELAND SECURITY,0,0,2,NJ,new jersey,8791936,1,1,(R),116,2019,
+116,House,"VAN DREW, Jefferson",,21980,AGRICULTURETURAL RESOURCES|EDUCATION|HOMELAND SECURITY,0,0,2,NJ,new jersey,8791936,0,0,(D),116,2019,
+116,Senate,"LOEFFLER, Kelly",,41904,0,0,0,0,GA,georgia,9688681,1,1,(R),116,2019,partial term
+116,House,"HALL, Kwanza",,21991,0,0,0,5,GA,georgia,9688681,1,0,(D),116,2019,partial term
+116,Senate,"KELLY, Mark Edward",,41905,ARMED SERVICES|ENERGY|ENVIRONMENT,0,0,0,AZ,arizona,6392307,0,0,(D),116,2020,partial term
+116,House,"MITCHELL, Paul",,91737,ARMED SERVICES|TRANSPORTATION|TRANSPORTATION,0,0,10,MA,michigan,9884129,0,1,(R),116,2017,changed to ind in Dec 2020
