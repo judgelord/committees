@@ -175,6 +175,26 @@ The combined dataset contains committee membership observations stacked across a
 data/membership_snapshots.rda
 ```
 
-### Merge with committees-current.yaml 
+# Merge in committee names and legislator metadata + complete missing ICPSR ids 
 
-`make_members_committees.r` merges committee codes with names 
+`code/make_members_committees.r` 
+
+- merges committee codes with committee names from committees-current.yaml
+- merges bioguide ids with member names and other information in legislators-historical.csv 
+- completes missing ICPSR ids using the `legislators` package <https://github.com/judgelord/legislators>
+
+The combined data include member-congress observations of merged info on members their committees 
+
+"data/members_committees.rda"
+
+# Merge with Stewart and Woon historical committee data 
+
+`code/merge_committees.R` merges Stewart and Woon data. 
+
+The combined data include committee membership and leadership positions
+
+The minimal version of those data are: 
+
+`data/members_committees_combined.rds`
+
+
