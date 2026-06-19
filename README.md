@@ -13,7 +13,7 @@ Historical committee membership data from @unitedstates project committee-member
 
 It also completes missing ICPSR ids using the `legislators` R package
 
-`make_stewart_woon_committees_membership_106-115` merges [data from from Stewart and Woon](https://web.mit.edu/cstewart/www/data/data_page.html) and makes a large number of corrections <https://web.mit.edu/17.251/www/data_page.html>
+`make_stewart_woon_committees_membership_103-115` merges [data from from Stewart and Woon](https://web.mit.edu/cstewart/www/data/data_page.html) and makes a large number of corrections <https://web.mit.edu/17.251/www/data_page.html>
 
 `merge_committees.R` merges the two above sources
 
