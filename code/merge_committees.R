@@ -4,10 +4,10 @@ library(magrittr)
 
 
 # merge in committee data for the 106th-115th from Stewart and Wu
-load(here::here("data", "committees_membership_106-115.rda"))
+load(here::here("data", "committees_membership_103-115.rda"))
 committees
 
-members_committees <- committees |>
+members_committees_sw <- committees |>
   group_by(icpsr, congress, chamber) |>
   summarise(committees = committees|> unique() |> paste(collapse = ";") |> str_replace_all("\\|", ";"),
             positions = position |> unique() |> paste(collapse = ";")) |>
@@ -15,25 +15,14 @@ members_committees <- committees |>
 
 
 # inspect stewart and woon corrected committees
-members_committees
+members_committees_sw
 
-members_committees$committees %>% str_split(";") %>% unlist() %>% unique()
-members_committees$positions %>% str_split(";") %>% unlist() %>% unique()
+members_committees_sw |> count(congress)
 
-# save
-save(members_committees, file = here::here("data", "members_committees_106-115th.rda"))
+members_committees_sw$committees %>% str_split(";") %>% unlist() %>% unique()
+members_committees_sw$positions %>% str_split(";") %>% unlist() %>% unique()
 
-members_committees_sw <- members_committees
 ################################################################################
-
-# merge in committee data for the 106th-115th from stewart and woon
-load(here::here("data", "members_committees_106-115th.rda"))
-
-members_committees
-
-members_committees$committees %>% str_split(";|\\|") %>% unlist() %>% unique()
-members_committees$positions %>% str_split(";") %>% unlist() %>% unique()
-
 
 
 
@@ -393,7 +382,7 @@ save(members_committees_oversight, file = here::here("data", "members_committees
 #TODO LOOK FOR MISSINGNESS BY MERGING WITH VOITEVIEW
 #FIXME merging with voteview here requires modified member data from legislators. For example, it assumes state is a chr, not numeric as in voteview
 #FIXME 2 can we just merge the committee data without needing member data?
-members <- legislators::members |> filter(congress > 105)
+members <- legislators::members |> filter(congress > 102)
 
 members %<>% left_join(members_committees_oversight)
 
@@ -411,7 +400,7 @@ members |> add_count(bioname, icpsr, chamber, congress, sort = T) |> filter(n>1,
 
 # look for missing committee data
 missing <- members %>%
-  filter(congress > 105,
+  filter(congress > 102,
          state_abbrev != "USA",
          is.na(committees) | committees == ""| committees == ";") |>
   left_join(icpsr_misssing |> select(congress, bioguide_id = bioguide) |>  mutate(icpsr_missing = T)) |>

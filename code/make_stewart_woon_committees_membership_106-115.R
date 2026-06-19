@@ -67,7 +67,7 @@ hcd %<>% select(congress, stewarticpsr, name,statenumber, cd,party, seniorstatus
 
 ## Stewart's Senate Committee Assignments 103-112.  Dataset Date: 6/23/2011.  Downloaded July 12, 2018.
 
-scd<-readxl::read_excel(here("committees/senate_assignments_103-115-3.xls"))
+scd<-readxl::read_excel(here("data", "senate_assignments_103-115-3.xls"))
 
 names(scd)<-c("congress", "commcode", "stewarticpsr", "name", "partystatus", "partyrank", "party", "assigneddate", "terminationdate", "X","seniorstatus", "committeeseniority", "committeeperiod", "assignmentstatusatend", "assignmentstatusnext", "ac",  "committeename", "statenumber", "cd", "state.name", "notes")
 
@@ -586,7 +586,7 @@ stew$ICPSRYear<-paste(stew$icpsr, stew$yearelected, sep="")
 ### Dropping "[Vacant]" entries
 # stew<-stew[stew$name!="[Vacant]",]
 
-committees <- filter(stew, congress > 105)
+committees <- filter(stew)
 rm(hcd)
 rm(scd)
 rm(stew)
@@ -796,14 +796,16 @@ committees$assignedchairdate[is.na(committees$position)] <- NA
 chairs <-  c(unique(committees$member_committee[which(committees$position == "Chair")]))
 committees %<>% mutate(chair_since_2007 = ifelse(member_committee %in% chairs, T, F) )
 
+# drop one observation with no congress
+committees %<>% drop_na(congress)
 
 # arrange for easy viewing
 committees %<>% select(icpsr, name, congress, chamber, committee, prestige, prestige_chair, leadership_position, position, chair_of, seniorstatus, assigneddate, terminationdate, everything()) %>% ungroup()
 
-save(committees, file = "data/committees_membership_106-115.rda")
+save(committees, file = "data/committees_membership_103-115.rda")
 
 
-
+count(committees, congress)
 
 
 # We only really need these + party leadership

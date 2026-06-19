@@ -181,15 +181,20 @@ data/membership_snapshots.rda
 
 - merges committee codes with committee names from committees-current.yaml
 - merges bioguide ids with member names and other information in legislators-historical.csv 
-- completes missing ICPSR ids using the `legislators` package <https://github.com/judgelord/legislators>
+- completes missing ICPSR ids using the `legislators` package <https://github.com/judgelord/legislators> to get ICPSRs from the "full_name"
 
 The combined data include member-congress observations of merged info on members their committees 
 
 "data/members_committees.rda"
 
-# Merge with Stewart and Woon historical committee data 
+# Merge with [Stewart and Woon historical committee data](https://web.mit.edu/17.251/www/data_page.html#2)
 
-`code/merge_committees.R` merges Stewart and Woon data. 
+`code/make_stewart_woon_committees.R` makes several hundred corrections to the Stewart and Woon data.^[Charles Stewart III and Jonathan Woon. Congressional Committee Assignments, 103rd to 114th Congresses, 1993--2017: House of Representatives, 2017]
+
+>  These data are made available for academic use, but may not be used commercially.
+
+`code/merge_committees.R` merges @unitedstates and Stewart and Woon data.
+
 
 The combined data include committee membership and leadership positions
 
@@ -197,4 +202,26 @@ The minimal version of those data are:
 
 `data/members_committees_combined.rds`
 
+# Citation
 
+Because they are a composite, these data require at least three citations: 
+
+1. Devin Judge-Lord. 2026. "Congressional Committee Assignments and Leadership Positions, 103th to 119th Congresses, 1993--2026"
+
+2. Charles Stewart III and Jonathan Woon. 2017. "Congressional Committee Assignments, 103rd to 114th Congresses, 1993--2017"
+
+3. @unitedstates-project, 2026. “Unitedstates/Congress-Legislators.” <https://github.com/unitedstates/congress-legislators>. Date Accessed: June 19, 2026.
+
+If you are using code to pull in additional variables from Lewis and Selin (2012) or voteview.com, you should cite them as well. 
+
+# References
+
+Devin Judge-Lord and Eleanor Neff Powell and Justin Grimmer. 2025. “The Effects of Shifting Priorities and Capacity on Elected Officials’ Policy Work and Constituency Service: Evidence from a Census of Legislator Requests to u.s. Federal Agencies, Replication Data.” *American Journal of Political Science*. Harvard Dataverse Network, at: <https://doi.org/10.7910/DVN/LWOCW>.
+
+Lewis, David E., and Jennifer L. Selin. 2012. *<span class="nocase">ACUS Sourcebook of United States Executive Agencies</span>*. Administrative Conference of the United States.
+
+Lewis, Jeffrey B., Keith Poole, Howard Rosenthal, Adam Boche, Aaron Rudkin, and Luke Sonnet. 2026. “Voteview: Congressional Roll-Call Votes Database.” <https://voteview.com>. Date Accessed: June 19, 2026.
+
+Stewart, Charles, III, and Jonathan Woon. 2017. “Congressional Committee Assignments, 103rd to 115th Congresses, 1993–2017: House of Representatives.” <https://web.mit.edu/17.251/www/data_page.html#2>. Date Accessed: March 18, 2025.
+
+@unitedstates-project, the. 2026. “Unitedstates/Congress-Legislators.” <https://unitedstates.github.io/> <https://github.com/unitedstates/congress-legislators>. Date Accessed: June 19, 2026.
