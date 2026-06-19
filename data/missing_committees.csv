@@ -1,0 +1,115 @@
+chamber,congress,bioname,icpsr,state,bioguide_id,icpsr_missing
+House,119,"PELOSI, Nancy",15448,california,P000197,FALSE
+House,119,"WALTZ, Michael",21981,florida,W000823,FALSE
+House,119,"FULLER, Clay",22568,georgia,F000485,FALSE
+House,119,"SCALISE, Steve",20759,louisiana,S001176,FALSE
+House,119,"JOHNSON, Mike",21727,louisiana,J000299,FALSE
+House,119,"CLARK, Katherine M.",21375,massachusetts,C001101,FALSE
+House,119,"MEJIA, Analilia",22569,new jersey,M001246,FALSE
+House,119,"VAN DREW, Jefferson",91980,new jersey,V000133,FALSE
+House,119,"JEFFRIES, Hakeem",21343,new york,J000294,FALSE
+Senate,119,"VANCE, James David",42304,ohio,V000137,FALSE
+House,118,"PELOSI, Nancy",15448,california,P000197,FALSE
+House,118,"MCCARTHY, Kevin",20703,california,M001165,FALSE
+House,118,"SCALISE, Steve",20759,louisiana,S001176,FALSE
+House,118,"CLARK, Katherine M.",21375,massachusetts,C001101,FALSE
+House,118,"VAN DREW, Jefferson",91980,new jersey,V000133,FALSE
+House,118,"JEFFRIES, Hakeem",21343,new york,J000294,FALSE
+House,118,"MOLINARO, Marcus",22351,new york,M001221,FALSE
+House,118,"SANTOS, George",22362,new york,S001222,FALSE
+House,118,"CLYBURN, James Enos",39301,south carolina,C000537,FALSE
+House,118,"WIED, Tony",22383,wisconsin,W000829,FALSE
+Senate,118,"SINEMA, Kyrsten",91300,arizona,S001191,FALSE
+Senate,118,"MANCHIN, Joe, III",90915,west virginia,M001183,FALSE
+House,117,"PELTOLA, Mary Sattler",22168,alaska,P000619,FALSE
+House,117,"PELOSI, Nancy",15448,california,P000197,FALSE
+House,117,"MCCARTHY, Kevin",20703,california,M001165,FALSE
+House,117,"CONWAY, Connie",22164,california,C001128,FALSE
+House,117,"CHERFILUS-MCCORMICK, Sheila",22163,florida,C001127,FALSE
+House,117,"YAKYM, Rudy, III",22171,indiana,Y000067,FALSE
+House,117,"RICHMOND, Cedric",21137,louisiana,R000588,FALSE
+House,117,"HOYER, Steny Hamilton",14873,maryland,H000874,FALSE
+House,117,"FINSTAD, Brad",22167,minnesota,F000475,FALSE
+House,117,"FLOOD, Mike",22166,nebraska,F000474,FALSE
+House,117,"VAN DREW, Jefferson",91980,new jersey,V000133,FALSE
+House,117,"HAALAND, Debra",21928,new mexico,H001080,FALSE
+House,117,"RYAN, Patrick",22169,new york,R000579,FALSE
+House,117,"SEMPOLINSKI, Joseph",22170,new york,S001219,FALSE
+House,117,"FUDGE, Marcia L.",20941,ohio,F000455,FALSE
+House,117,"BROWN, Shontel M.",22161,ohio,B001313,FALSE
+House,117,"CAREY, Mike",22162,ohio,C001126,FALSE
+House,117,"FLORES, Mayra",22165,texas,F000473,FALSE
+Senate,117,"HARRIS, Kamala Devi",41701,california,H001075,FALSE
+Senate,117,"LOEFFLER, Kelly",41904,georgia,L000594,FALSE
+House,115,"JONES, Brenda",21764,michigan,J000303,FALSE
+House,115,"MORELLE, Joseph",21761,new york,M001206,FALSE
+House,115,"HERN, Kevin",21760,oklahoma,H001082,FALSE
+House,115,"SCANLON, Mary Gay",21762,pennsylvania,S001205,FALSE
+House,115,"WILD, Susan",21763,pennsylvania,W000826,FALSE
+House,115,"CLYBURN, James Enos",39301,south carolina,C000537,FALSE
+House,114,"HANABUSA, Colleen",21124,hawaii,H001050,FALSE
+House,114,"COMER, James",21565,kentucky,C001108,FALSE
+House,114,"EVANS, Dwight",21566,pennsylvania,E000296,FALSE
+House,114,"CLYBURN, James Enos",39301,south carolina,C000537,FALSE
+House,113,"NORCROSS, Donald",21536,new jersey,N000188,FALSE
+House,113,"ADAMS, Alma",21545,north carolina,A000370,FALSE
+House,113,"BRAT, David A.",21553,virginia,B001290,FALSE
+House,112,"MASSIE, Thomas",31102,kentucky,M001184,FALSE
+House,112,"ISRAEL, Steve",20129,new york,I000057,FALSE
+House,112,"DELBENE, Suzan K.",31101,washington,D000617,FALSE
+Senate,112,"SCHATZ, Brian Emanuel",41112,hawaii,S001194,FALSE
+House,112,"PAYNE, Donald, Jr.",31103,new jersey,P000604,FALSE
+House,111,"FALEOMAVAEGA, Eni F. H.",29401,NA,F000010,FALSE
+House,111,"SOLIS, Hilda L.",20105,california,S001153,FALSE
+House,111,"NORTON, Eleanor Holmes",21993,district of columbia,N000147,FALSE
+House,111,"GRAVES, Tom",20962,georgia,G000560,FALSE
+House,111,"BORDALLO, Madeleine",20764,NA,B001245,FALSE
+House,111,"DJOU, Charles",20961,hawaii,D000611,FALSE
+House,111,"STUTZMAN, Marlin",21100,indiana,S001188,FALSE
+House,111,"REED, Thomas W., II",21101,new york,R000585,FALSE
+House,111,"SABLAN, Gregorio Kilili Camacho",21996,NA,S001177,FALSE
+House,111,"SABLAN, Gregorio Kilili Camacho",91996,NA,S001177,FALSE
+House,111,"CRITZ, Mark S.",20960,pennsylvania,C001081,FALSE
+House,111,"PIERLUISI, Pedro",20964,puerto rico,P000596,FALSE
+House,111,"PIERLUISI, Pedro",90964,puerto rico,P000596,FALSE
+House,111,"CHRISTENSEN, Donna Marie",20765,NA,C000380,FALSE
+Senate,111,"BIDEN, Joseph Robinette (Joe), Jr.",14101,delaware,B000444,FALSE
+Senate,111,"COONS, Christopher A.",40916,delaware,C001088,FALSE
+Senate,111,"BROWN, Scott P.",40913,massachusetts,B001268,FALSE
+Senate,111,"MENENDEZ, Robert",29373,new jersey,M000639,FALSE
+Senate,111,"CLINTON, Hillary Rodham",40105,new york,C001041,FALSE
+Senate,111,"GOODWIN, Carte P.",40914,west virginia,G000561,FALSE
+Senate,111,"MANCHIN, Joe, III",40915,west virginia,M001183,FALSE
+House,110,"FALEOMAVAEGA, Eni F. H.",29401,NA,F000010,FALSE
+House,110,"NORTON, Eleanor Holmes",21993,district of columbia,N000147,FALSE
+House,110,"BORDALLO, Madeleine",20764,NA,B001245,FALSE
+House,110,"FUDGE, Marcia L.",20941,ohio,F000455,FALSE
+House,110,"FORTUÑO, Luis G.",20766,puerto rico,F000452,FALSE
+House,110,"CHRISTENSEN, Donna Marie",20765,NA,C000380,FALSE
+Senate,110,"MENENDEZ, Robert",29373,new jersey,M000639,FALSE
+House,109,"SIRES, Albio",20542,new jersey,S001165,FALSE
+House,109,"MENENDEZ, Robert",29373,new jersey,M000639,FALSE
+House,109,"STRICKLAND, Ted",29747,ohio,S001004,FALSE
+House,109,"SEKULA GIBBS, Shelley",20541,texas,S001166,FALSE
+Senate,109,"MENENDEZ, Robert",29373,new jersey,M000639,FALSE
+Senate,109,"JEFFORDS, James Merrill",94240,vermont,J000072,FALSE
+House,108,"GEPHARDT, Richard Andrew",14421,missouri,G000132,FALSE
+House,108,"MENENDEZ, Robert",29373,new jersey,M000639,FALSE
+House,108,"STRICKLAND, Ted",29747,ohio,S001004,FALSE
+Senate,108,"CAMPBELL, Ben Nighthorse",95407,colorado,C000077,FALSE
+Senate,108,"JEFFORDS, James Merrill",94240,vermont,J000072,FALSE
+House,107,"DIXON, Julian Carey",14620,california,D000373,FALSE
+House,107,"BONIOR, David Edward",14407,michigan,B000619,FALSE
+House,107,"MENENDEZ, Robert",29373,new jersey,M000639,FALSE
+House,107,"TRAFICANT, James A., Jr.",15121,ohio,T000350,FALSE
+House,107,"STRICKLAND, Ted",29747,ohio,S001004,FALSE
+House,107,"GOODE, Virgil H., Jr.",89767,virginia,G000280,FALSE
+Senate,107,"CAMPBELL, Ben Nighthorse",95407,colorado,C000077,FALSE
+Senate,107,"BARKLEY, Dean",40106,minnesota,B001237,FALSE
+Senate,107,"JEFFORDS, James Merrill",94240,vermont,J000072,FALSE
+House,106,"MARTÍNEZ, Matthew G.",94879,california,M000206,FALSE
+House,106,"LIVINGSTON, Robert Linlithgow, Jr.",14469,louisiana,L000371,FALSE
+House,106,"MENENDEZ, Robert",29373,new jersey,M000639,FALSE
+House,106,"STRICKLAND, Ted",29747,ohio,S001004,FALSE
+Senate,106,"CAMPBELL, Ben Nighthorse",95407,colorado,C000077,FALSE
+Senate,106,"MILLER, Zell Bryan",49904,georgia,M001141,FALSE
