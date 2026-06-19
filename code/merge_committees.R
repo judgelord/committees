@@ -46,15 +46,34 @@ members_committees_us <-  members_committees
 members_committees_us$committees %>% str_split(";") %>% unlist() %>% unique()
 members_committees_us$titles %>% str_split(";") %>% unlist() %>% unique()
 
+# completing icpsrs was done in the make_members_committees.R script, so it should find nothing new here,
+# but just checking before deleting missing ICPSRs
+library(legislators)
+icpsr_misssing <- members_committees_us |>
+  filter(is.na(icpsr)) |>
+  distinct(congress, bioguide, full_name, wikipedia_id)
+
+
+icpsr_corrections <- icpsr_misssing |>
+  mutate(name = str_c(full_name, wikipedia_id))  |>
+  extractMemberName(col_name = "name", congress = "congress") |>
+  drop_na(icpsr)
+
+write_csv(icpsr_misssing, file = here::here("data", "unitedstates-legislators-missing-icpsr.csv"))
+
+
 members_committees_us %<>%
   select(icpsr,
+         bioguide,
          congress,
          titles,
-         committees_unitedstates = committees)
+         committees_unitedstates = committees) %>%
+  distinct()
 
 
 #################################
 
+# nieve merge before normalizing
 members_committees <- full_join(members_committees_sw, members_committees_us)
 
 
@@ -62,7 +81,7 @@ members_committees <- full_join(members_committees_sw, members_committees_us)
 look <- members_committees |>
   drop_na(committees, committees_unitedstates) |>
   filter(committees != committees_unitedstates) |>
-  count(icpsr, congress, committees, committees_unitedstates)
+  count(icpsr, bioguide, congress, committees, committees_unitedstates)
 look
 
 
@@ -89,7 +108,8 @@ normalize_committees <- function(x, sep = "[;|]") {
     sort() |>
     paste(collapse = ";")
 }
-# Because you are also getting a many-to-many join warning, I would first make sure each dataset has only one row per icpsr/congress. You can collapse committees at that level before joining.
+
+# to avoide many-to-many join, collapse committees at member level before joining.
 members_committees_sw_clean <- members_committees_sw |>
   group_by(icpsr, congress) |>
   summarise(
@@ -99,12 +119,13 @@ members_committees_sw_clean <- members_committees_sw |>
   )
 
 members_committees_us_clean <- members_committees_us |>
-  group_by(icpsr, congress) |>
+  group_by(icpsr, congress, bioguide) |>
   summarise(
     committees_unitedstates = normalize_committees(committees_unitedstates),
     titles = paste(titles, collapse  = ";"),
     .groups = "drop"
   )
+
 # Then join:
   members_committees <- full_join(
     members_committees_sw_clean |>
@@ -152,17 +173,20 @@ members_committees <- members_committees %>%
   ungroup()
 
 
+members_committees %>%
+  distinct(bioguide, icpsr) |>
+  count(icpsr, sort = T)
+
+members_committees %>%
+  distinct(bioguide, icpsr) |>
+  count(bioguide, sort = T)
 
 
 save(members_committees, file = here::here("data", "members_committees_combined.rds"))
 
 
-
+load(here::here("data", "members_committees_combined.rds"))
 ################################################
-
-#FIXME this requires modified member data from legislators. For example, it assumes state is a chr, not numeric as in voteview
-#FIXME 2 can we just merge the committee data without needing member data?
-# member_data <- legislators::members |> filter(congress > 105)
 
 
 members_committees %<>%
@@ -170,7 +194,8 @@ members_committees %<>%
     # because these come from two different datasets, need to replace NAs to avoide ifelse below yielding NA
     titles = replace_na(titles, ""), # from @unitedstates data
     positions = replace_na(positions, ""), # from stewart data
-
+    committees_sw = replace_na(committees_sw, ""),
+    committees_unitedstates = replace_na(committees_unitedstates, ""),
     #FIXME with case when so that we preserve NAs
     chair = ifelse( str_detect(titles, "^Chair|;Chair|;Chairman|;Cochairman") | str_detect(positions, "Chair"),
                     1, 0 ),
@@ -178,8 +203,11 @@ members_committees %<>%
                                1, 0 )
   ) %>%
   # using combined
-  #TODO check if this is the right call, maybe they should be combined
-  mutate(committees = paste(committees, committees_unitedstates, collapse = ";") |> str_remove("^NA;|NA$"),
+  #TODO check if this is the right call after investigating discrepencies, issue #1
+  mutate(committees = str_c(committees_sw, committees_unitedstates, sep = ";") |>
+           str_remove("^;|;$") |>
+           str_squish(),
+         committees = ifelse(committees == "", NA, committees),
          chair = ifelse(is.na(committees), NA, chair ),
          ranking_minority = ifelse(is.na(committees), NA, ranking_minority ) ) %>%
   #select(-committees2) %>%
@@ -187,33 +215,7 @@ members_committees %<>%
 
 members_committees
 
-# look where we have overlapping data
-look <- members_committees |>
-  drop_na(committees, committees_unitedstates) |>
-  count(congress, bioname, committees, committees_unitedstates)
 
-
-# look for missing committee data
-missing <- members_committees %>% filter(congress > 105, is.na(committees) | committees == "")
-
-# missing <- members_committees %>% filter(bioname %in% missing$bioname, congress >105) %>% arrange(bioname)
-
-missing
-
-missing %>%
-  write_csv(here::here("data", "missing_committees.csv"))
-
-# look for missing committee data
-missing <- members_committees %>% filter( is.na(committees) | committees == "")
-
-missing |> count(congress)
-
-missing <- members_committees %>% filter(icpsr %in% missing$icpsr) %>% arrange(icpsr)
-
-missing
-
-missing %>%
-  write_csv(here::here("data", "missing_committees.csv"))
 
 
 
@@ -226,6 +228,8 @@ members_committees |> count(committees, chair, ranking_minority, congress, sort 
 ## OVERSIGHT
 
 load(here::here("data", "oversight_committee_data.rda"))
+
+oversight_committee_data$`Reporting Committees` |> str_split(";") |> unlist() |> str_squish() |>  unique()
 
 ACUScommittees <- oversight_committee_data$`Reporting Committees` |>
   str_split(";") |>
@@ -280,7 +284,10 @@ m
 mc <- m |> paste(sep = "|", collapse = "|") |> str_remove("^\\|")
 
 # confirm that ACUS committees will be matched to member committees
-str_detect(ACUScommittees, mc)
+tibble(
+  ACUS_reporting_committee = ACUScommittees,
+  in_combined_committee_membership_data = str_detect(ACUScommittees, mc)
+) |> knitr::kable()
 
 
 d1$committees |> str_extract_all(mc)
@@ -292,12 +299,14 @@ crosswalk <- d1 |>
   unnest(committees) |>
   distinct()
 
-members <- members_committees |>
+write_csv(crosswalk, file = here::here("data", "ACUS_reporting_committee_crosswalk.csv"))
+
+members_committees_oversight <- members_committees |>
   mutate(committees = str_split(committees, ";|\\|")) |>
   unnest(committees) |>
   distinct() |>
   left_join(crosswalk) |>
-  group_by(icpsr,congress, chamber) |>
+  group_by(icpsr,congress) |>
   mutate(committees = str_c( unique(committees), collapse = ";")  |>
            str_remove_all("^NA;|;NA$|^NA$") |>
            str_replace(";NA;", ";"),
@@ -316,19 +325,17 @@ members <- members_committees |>
 #     oversight = ifelse(is.na(committees) | committees == "", NA, oversight)) %>%
 #   ungroup()
 
-members$committees
+members_committees_oversight$committees
 
 # these two should be the same, right?
-count(members, oversight, sort = T)
-count(members, committees, oversight, sort = T)
+count(members_committees_oversight, oversight, sort = T)
+count(members_committees_oversight, committees, oversight, sort = T)
 
-look <- count(members, committees, oversight, sort = T)
+look <- count(members_committees_oversight, committees, oversight, sort = T)
 
+look <- members_committees_oversight |> filter(is.na(oversight))
 
-members_committees_oversight <- members
-
-
-save(members_committees_oversight, file = here("data", "members_committees_oversight.rda"))
+save(members_committees_oversight, file = here::here("data", "members_committees_oversight.rda"))
 
 
 ## NOTES ON SOME OF THE MISSING COMMITTEE DATA THAT WAS MISSING
@@ -344,3 +351,72 @@ save(members_committees_oversight, file = here("data", "members_committees_overs
 # BISHOP, Dan came in after
 # GARCIA, Mike - 2020 special election
 # HILL, Katie - resigned
+
+
+#TODO LOOK FOR MISSINGNESS BY MERGING WITH VOITEVIEW
+#FIXME merging with voteview here requires modified member data from legislators. For example, it assumes state is a chr, not numeric as in voteview
+#FIXME 2 can we just merge the committee data without needing member data?
+members <- legislators::members |> filter(congress > 105)
+
+
+# add hoc corrections, until names are fixed in legislators https://github.com/judgelord/legislators-data/issues/11
+members_committees_oversight %<>%
+  filter(!(icpsr == 22529  & bioguide == "K000402"),
+         !(icpsr == 22341  & bioguide == "L000602"),
+         !(icpsr == 41110  & bioguide == "L000597"),
+         !(icpsr == 21526  & bioguide == "M001221"),
+         !(icpsr == 29373  & bioguide == "M001226"),
+         !(icpsr == 1110  & bioguide == "L000597")
+  )
+
+
+
+members %<>% left_join(members_committees_oversight)
+
+
+# confirm no duplicates in member_data post merge
+members <- distinct(members)
+dim(members)
+members |> add_count(bioname, icpsr, chamber, congress, sort = T) |> filter(n>1, bioguide_id != bioguide) |>
+  # left_join(members_committees |> select(bioguide, name)) |>
+  distinct(chamber, congress, bioname,
+           #name_incorrect = name,
+           icpsr, bioguide_correct = bioguide_id, bioguide_incorrect = bioguide) |>
+  knitr::kable()
+
+
+# look for missing committee data
+missing <- members %>%
+  filter(congress > 105,
+         state_abbrev != "USA",
+         is.na(committees) | committees == ""| committees == ";") |>
+  left_join(icpsr_misssing |> select(congress, bioguide_id = bioguide) |>  mutate(icpsr_missing = T)) |>
+  mutate(icpsr_missing =  replace_na(icpsr_missing, F) )
+
+# missing <- members_committees %>% filter(bioguide %in% missing$bioguide, congress >105) %>% arrange(bioguide)
+
+missing
+
+missing %>%
+  filter(icpsr_missing == FALSE) |>
+  select(chamber, congress, bioname, icpsr, state, bioguide_id, icpsr_missing) %>%
+  write_csv(here::here("data", "missing_committees.csv"))
+
+missing %>%
+  filter(icpsr_missing) |>
+  select(chamber, congress, bioname, icpsr, state, bioguide_id, icpsr_missing) %>%
+  knitr::kable()
+
+# look for missing committee data
+missing <- members_committees %>% filter( is.na(committees) | committees == "")
+
+missing |> count(congress)
+
+missing <- members_committees %>% filter(icpsr %in% missing$icpsr) %>% arrange(icpsr)
+
+missing
+
+missing %>%
+  write_csv(here::here("data", "missing_committees.csv"))
+
+
