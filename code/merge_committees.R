@@ -137,18 +137,7 @@ members_committees_us_clean <- members_committees_us |>
   )
 
 
-
-
-
-
-# Now look only at cases where both datasets have data and the normalized committee sets differ:
-  look <- members_committees |>
-  filter(committees_sw != committees_unitedstates) |>
-  arrange(icpsr, -congress)
-
-look |> knitr::kable()
-
-look |> write_csv(file = here::here("data", "discrepancies-between-stewart-and-unitedstates.csv") )
+  ########################################
 
 ################## CORRECTIONS
 
@@ -173,6 +162,17 @@ members_committees <- members_committees %>%
   ungroup()
 
 
+# add hoc corrections, until names are fixed in legislators https://github.com/judgelord/legislators-data/issues/11
+members_committees %<>%
+  filter(!(icpsr == 22529  & bioguide == "K000402"),
+         !(icpsr == 22341  & bioguide == "L000602"),
+         !(icpsr == 41110  & bioguide == "L000597"),
+         !(icpsr == 21526  & bioguide == "M001221"),
+         !(icpsr == 29373  & bioguide == "M001226"),
+         !(icpsr == 1110  & bioguide == "L000597")
+  )
+
+
 members_committees %>%
   distinct(bioguide, icpsr) |>
   count(icpsr, sort = T)
@@ -182,10 +182,29 @@ members_committees %>%
   count(bioguide, sort = T)
 
 
+# Now look only at cases where both datasets have data and the normalized committee sets differ:
+look <- members_committees |>
+  filter(committees_sw != committees_unitedstates) |>
+  arrange(icpsr, -congress)
+
+look |> knitr::kable()
+
+look |> write_csv(file = here::here("data", "discrepancies-between-stewart-and-unitedstates.csv") )
+
+
 save(members_committees, file = here::here("data", "members_committees_combined.rds"))
 
 
+###################################################################
+
+# TRANSFORMATIONS (PERHAPS MOVE TO A NEW SCRIPT)
+
+################
+
 load(here::here("data", "members_committees_combined.rds"))
+
+
+
 ################################################
 
 
@@ -216,7 +235,11 @@ members_committees %<>%
 members_committees
 
 
-
+# look at combined data to make sure it looks right
+look <- members_committees |>
+  filter(committees_unitedstates != "" & committees_sw != "") |>
+  select(starts_with("comm")) |>
+  distinct()
 
 
 
@@ -320,10 +343,12 @@ members_committees_oversight <- members_committees |>
   ungroup() |>
   distinct()
 
-# members %<>%
-#   mutate(# drop 0s where we had no oversight data
-#     oversight = ifelse(is.na(committees) | committees == "", NA, oversight)) %>%
-#   ungroup()
+# look at combined data to make sure it looks right
+look <- members_committees_oversight |>
+  filter(committees_unitedstates != "" & committees_sw != "") |>
+  select(starts_with("comm")) |>
+  distinct()
+
 
 members_committees_oversight$committees
 
@@ -334,8 +359,6 @@ count(members_committees_oversight, committees, oversight, sort = T)
 look <- count(members_committees_oversight, committees, oversight, sort = T)
 
 look <- members_committees_oversight |> filter(is.na(oversight))
-
-save(members_committees_oversight, file = here::here("data", "members_committees_oversight.rda"))
 
 
 ## NOTES ON SOME OF THE MISSING COMMITTEE DATA THAT WAS MISSING
@@ -353,11 +376,6 @@ save(members_committees_oversight, file = here::here("data", "members_committees
 # HILL, Katie - resigned
 
 
-#TODO LOOK FOR MISSINGNESS BY MERGING WITH VOITEVIEW
-#FIXME merging with voteview here requires modified member data from legislators. For example, it assumes state is a chr, not numeric as in voteview
-#FIXME 2 can we just merge the committee data without needing member data?
-members <- legislators::members |> filter(congress > 105)
-
 
 # add hoc corrections, until names are fixed in legislators https://github.com/judgelord/legislators-data/issues/11
 members_committees_oversight %<>%
@@ -369,7 +387,13 @@ members_committees_oversight %<>%
          !(icpsr == 1110  & bioguide == "L000597")
   )
 
+save(members_committees_oversight, file = here::here("data", "members_committees_oversight.rda"))
 
+
+#TODO LOOK FOR MISSINGNESS BY MERGING WITH VOITEVIEW
+#FIXME merging with voteview here requires modified member data from legislators. For example, it assumes state is a chr, not numeric as in voteview
+#FIXME 2 can we just merge the committee data without needing member data?
+members <- legislators::members |> filter(congress > 105)
 
 members %<>% left_join(members_committees_oversight)
 
@@ -407,16 +431,22 @@ missing %>%
   select(chamber, congress, bioname, icpsr, state, bioguide_id, icpsr_missing) %>%
   knitr::kable()
 
-# look for missing committee data
-missing <- members_committees %>% filter( is.na(committees) | committees == "")
-
 missing |> count(congress)
-
-missing <- members_committees %>% filter(icpsr %in% missing$icpsr) %>% arrange(icpsr)
-
-missing
 
 missing %>%
   write_csv(here::here("data", "missing_committees.csv"))
+
+# all congresses for members swith one or more missing
+missing_with_nonmissing <- members %>%
+  filter(icpsr %in% missing$icpsr) %>%
+  select(chamber, congress, bioname, icpsr, state, bioguide_id, positions, titles, starts_with("committ")) %>%
+  arrange(icpsr)
+
+missing_with_nonmissing
+
+missing_with_nonmissing %>%
+  write_csv(here::here("data", "missing_with_nonmissing.csv"))
+
+
 
 
