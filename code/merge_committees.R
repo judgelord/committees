@@ -62,7 +62,7 @@ members_committees_us %<>%
 
 #################################
 
-# nieve merge before normalizing
+# naive merge before normalizing
 members_committees <- full_join(members_committees_sw, members_committees_us)
 
 
@@ -181,7 +181,7 @@ look |> knitr::kable()
 look |> write_csv(file = here::here("data", "discrepancies-between-stewart-and-unitedstates.csv") )
 
 
-save(members_committees, file = here::here("data", "members_committees_combined.rds"))
+save(members_committees, file = here::here("data", "members_committees_combined.rda"))
 
 
 ###################################################################
@@ -190,7 +190,7 @@ save(members_committees, file = here::here("data", "members_committees_combined.
 
 ################
 
-load(here::here("data", "members_committees_combined.rds"))
+load(here::here("data", "members_committees_combined.rda"))
 
 
 
