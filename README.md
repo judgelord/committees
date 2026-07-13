@@ -2,23 +2,30 @@
 
 Historical committee membership data from @unitedstates project committee-membership-current.yaml version history
 
-`download_committee_membership_versions.sh` collects yaml files from the version history of `committee-membership-current.yaml `
+A minimal version of combined data described below, including committee membership and leadership positions, is in the data folder: 
 
-`combine_yaml.R` combines them into a single historical committee membership dataset.
+## `data/members_committees_combined.rda`
 
-`make_members_committees.R` merges in other legislator and committee data from @unitedstates project
+More detailed versions of these data can be reproduced with the code in this repository: 
 
-- legislators-historical.csv
-- committees-historical.csv
+- `download_committee_membership_versions.sh` collects yaml files from the version history of `committee-membership-current.yaml `
 
-It also completes missing ICPSR ids using the `legislators` R package
+- `combine_yaml.R` combines them into a single historical committee membership dataset.
 
-`make_stewart_woon_committees_membership_103-115` merges [data from from Stewart and Woon](https://web.mit.edu/cstewart/www/data/data_page.html) and makes a large number of corrections <https://web.mit.edu/17.251/www/data_page.html>
+- `make_members_committees.R` merges in other legislator and committee data from the @unitedstates project
 
-`merge_committees.R` merges the two above sources
+  - legislators-historical.csv
+  - committees-historical.csv
 
-`make_oversight_committee_data.R` merges this with Lewis and Selin's ACUS oversight jurisdiction data <https://www.vanderbilt.edu/csdi/sourcebook.php> 
+It also completes missing ICPSR IDs using the [`legislators` R package](https://judgelord.github.io/legislators/)
 
+- `make_stewart_woon_committees_membership_103-115` merges [data from from Stewart and Woon](https://web.mit.edu/cstewart/www/data/data_page.html), making a number of corrections <https://web.mit.edu/17.251/www/data_page.html>
+
+- `merge_committees.R` merges the two above sources
+
+- `make_oversight_committee_data.R` merges this with Lewis and Selin's ACUS oversight jurisdiction data <https://www.vanderbilt.edu/csdi/sourcebook.php> 
+
+This README describes the workflow, data, and requested citation. 
 
 # Committee Membership Historical Snapshots from @united-states/legislators 
 
@@ -176,10 +183,10 @@ data/membership_snapshots.rda
 `code/make_members_committees.r` 
 
 - merges committee codes with committee names from committees-current.yaml
-- merges bioguide ids with member names and other information in legislators-historical.csv 
-- completes missing ICPSR ids using the `legislators` package <https://github.com/judgelord/legislators> to get ICPSRs from the "full_name"
+- merges bioguide IDs with member names and other information in legislators-historical.csv 
+- completes missing ICPSR IDs using the `legislators` package <https://github.com/judgelord/legislators> to get ICPSRs from the "full_name"
 
-The combined data include member-congress observations of merged info on members their committees 
+The combined data include member-congress observations of merged info on members and their committees. 
 
 "data/members_committees.rda"
 
@@ -192,11 +199,11 @@ The combined data include member-congress observations of merged info on members
 `code/merge_committees.R` merges @unitedstates and Stewart and Woon data.
 
 
-The combined data include committee membership and leadership positions
+The combined data include committee membership and leadership positions.
 
-The minimal version of those data are: 
+The minimal version of those data is: 
 
-`data/members_committees_combined.rds`
+`data/members_committees_combined.rda`
 
 
 # Citation
@@ -213,12 +220,12 @@ If you are using code to pull in additional variables from Lewis and Selin (2012
 
 # References
 
-Devin Judge-Lord and Eleanor Neff Powell and Justin Grimmer. 2025. “The Effects of Shifting Priorities and Capacity on Elected Officials’ Policy Work and Constituency Service: Evidence from a Census of Legislator Requests to u.s. Federal Agencies, Replication Data.” *American Journal of Political Science*. Harvard Dataverse Network, at: <https://doi.org/10.7910/DVN/LWOCW>.
+Devin Judge-Lord, Eleanor Neff Powell, and Justin Grimmer. 2025. “The Effects of Shifting Priorities and Capacity on Elected Officials’ Policy Work and Constituency Service: Evidence from a Census of Legislator Requests to U.S. Federal Agencies, Replication Data.” *American Journal of Political Science*. Harvard Dataverse Network, at: <https://doi.org/10.7910/DVN/LWOCW>.
 
 Lewis, David E., and Jennifer L. Selin. 2012. *<span class="nocase">ACUS Sourcebook of United States Executive Agencies</span>*. Administrative Conference of the United States.
 
 Lewis, Jeffrey B., Keith Poole, Howard Rosenthal, Adam Boche, Aaron Rudkin, and Luke Sonnet. 2026. “Voteview: Congressional Roll-Call Votes Database.” <https://voteview.com>. Date Accessed: June 19, 2026.
 
-Stewart, Charles, III, and Jonathan Woon. 2017. “Congressional Committee Assignments, 103rd to 115th Congresses, 1993–2017: House of Representatives.” <https://web.mit.edu/17.251/www/data_page.html#2>. Date Accessed: March 18, 2025.
+Stewart, Charles III, and Jonathan Woon. 2017. “Congressional Committee Assignments, 103rd to 115th Congresses, 1993–2017: House of Representatives.” <https://web.mit.edu/17.251/www/data_page.html#2>. Date Accessed: March 18, 2025.
 
 @unitedstates-project, the. 2026. “Unitedstates/Congress-Legislators.” <https://unitedstates.github.io/> <https://github.com/unitedstates/congress-legislators>. Date Accessed: June 19, 2026.
