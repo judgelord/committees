@@ -2,20 +2,22 @@
 
 Historical committee membership data from @unitedstates project committee-membership-current.yaml version history
 
+`download_committee_membership_versions.sh` collects yaml files from the version history of `committee-membership-current.yaml `
 
-`make_members_committees.R` takes yaml files from the version history of `committee-membership-current.yaml `
+`combine_yaml.R` combines them into a single historical committee membership dataset.
 
-It also merges in legislator and committee data from 
+`make_members_committees.R` merges in other legislator and committee data from @unitedstates project
 
 - legislators-historical.csv
 - committees-historical.csv
 
-`make_stewart_woon_committees_membership_106-115` merges [data from from Stewart and Woon](https://web.mit.edu/cstewart/www/data/data_page.html) 
-with voteview.com using the `legislators` R packge, making a large number of corrections <https://web.mit.edu/17.251/www/data_page.html>
+It also completes missing ICPSR ids using the `legislators` R package
+
+`make_stewart_woon_committees_membership_103-115` merges [data from from Stewart and Woon](https://web.mit.edu/cstewart/www/data/data_page.html) and makes a large number of corrections <https://web.mit.edu/17.251/www/data_page.html>
 
 `merge_committees.R` merges the two above sources
 
-`make_oversight_committee_data.R` merges this with Lewis and Selin's ACUS oversight jurisdiction data <https://www.vanderbilt.edu/csdi/sourcebook.php>
+`make_oversight_committee_data.R` merges this with Lewis and Selin's ACUS oversight jurisdiction data <https://www.vanderbilt.edu/csdi/sourcebook.php> 
 
 
 # Committee Membership Historical Snapshots from @united-states/legislators 
@@ -55,13 +57,13 @@ bash download_committee_membership_versions.sh
 
 #### Output
 
-The script creates a directory such as:
+The script creates a directory:
 
 ```text
 committee-membership-versions/
 ```
 
-and saves one YAML file per relevant Git commit.
+and saves one YAML file per Git commit.
 
 Example output files:
 
@@ -76,12 +78,6 @@ Each filename includes:
 
 - the commit date, in `YYYY-MM-DD` format
 - the short Git commit SHA
-
-Including the SHA prevents files from being overwritten when multiple commits occur on the same date.
-
-#### Notes
-
-This script downloads every **committed** version of the file that appears in the repository’s Git history. It does not recover versions that may have existed locally but were never committed.
 
 ---
 
@@ -201,6 +197,7 @@ The combined data include committee membership and leadership positions
 The minimal version of those data are: 
 
 `data/members_committees_combined.rds`
+
 
 # Citation
 
